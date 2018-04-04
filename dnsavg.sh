@@ -6,7 +6,7 @@ tlds=(com org co.uk net ca de jp fr au us at ch it nl io)
 
 # get a random 64 char hex string
 function random_hex() {
-  head -c 128 /dev/urandom | base64 | \
+  head -c 128 /dev/urandom | base64 |
     fold -w1 | shuf | grep -Eo '[a-Z0-9]' | tr -d '\n' | cut -c-64 | tr '[:upper:]' '[:lower:]'
 }
 
@@ -33,7 +33,10 @@ printf 'testing %s domains on %s:%s\n' "${rounds}" "${server}" "${port} with ${c
 addition=''
 for i in $(seq 1 "${rounds}"); do
   domain=$(random_domain)
-  time=$(${cmd} -p "${port}" "${domain}" IN A "@${server}" | grep -Eo ';; Query time: [0-9]+(\.[0-9]+)? msec' | grep -Eo '[0-9]+(\.[0-9]+)?') || { echo 'query failed'; exit 1; }
+  time=$(${cmd} -p "${port}" "${domain}" IN A "@${server}" | grep -Eo ';; Query time: [0-9]+(\.[0-9]+)? msec' | grep -Eo '[0-9]+(\.[0-9]+)?') || {
+    echo 'query failed'
+    exit 1
+  }
   addition="${addition} + ${time}"
   sleep "0.0$(shuf -i 01-25 -n 1)" # let's not go crazy
 
