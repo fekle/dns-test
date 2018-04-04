@@ -23,5 +23,6 @@ for server in "${!servers[@]}"; do
 ${server}: $(tail -n1 <"${tmp}")"
 done
 result="$(sort <<<"${result}")"
+rm -f "${tmp}"
 
-printf '\n=== RESULTS ===%f\n' "${result}"
+printf '\n=== RESULTS ===%s\n' "${result}"
