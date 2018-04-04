@@ -17,7 +17,7 @@ function random_domain() {
 
 # number of times to test
 rounds="${2:-10}"
-server="${1:-127.0.0.1}"
+server="${1:-$(grep 'nameserver' /etc/resolv.conf | tail -n1 | awk '{ print $2; }')}"
 port="${3:-53}"
 
 # check for dig or drill
