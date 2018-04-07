@@ -8,7 +8,7 @@ cd "${workdir}"
 case "${1:-}" in
   "fmt")
     set -x
-    find . -type f -name '*.py' -exec \
+    find . -maxdepth 1 -type f -name '*.py' -exec \
       autopep8 --in-place -j 0 -aaa --max-line-length 150 {} '+'
     ;;
   *)
