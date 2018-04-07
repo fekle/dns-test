@@ -9,20 +9,20 @@ servers=(
   ["cloudflare-2"]="1.0.0.1"
   ["quad9-1"]="9.9.9.9"
   ["quad9-2"]="149.112.112.112"
+  ["opendns-1"]="208.67.222.222"
+  ["opendns-2"]="208.67.220.220"
 )
 
 rounds=${1:-50}
-tmp=$(mktemp)
 result=""
 
 for server in "${!servers[@]}"; do
   ip=${servers[$server]}
   echo "=> testing server '$server'"
-  ./dnsavg.sh "${ip}" "${rounds}" | tee "${tmp}"
+  tmp=$(python3 -O ./dnsavg.py --server "${ip}" --rounds "${rounds}")
   result="${result}
-${server}: $(tail -n1 <"${tmp}")"
+${server} $(tail -n1 <<<"${tmp}")"
 done
 result="$(sort <<<"${result}")"
-rm -f "${tmp}"
 
 printf '\n=== RESULTS ===%s\n' "${result}"

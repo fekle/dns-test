@@ -1,0 +1,19 @@
+#!/bin/bash
+set -euf
+
+self="${0}"
+workdir="$(dirname "$(realpath "${self}")")"
+cd "${workdir}"
+
+case "${1:-}" in
+  "fmt")
+    set -x
+    find . -type f -name '*.py' -exec \
+      autopep8 --in-place -j 0 -aaa --max-line-length 150 {} \
+      '+' || true
+    shfmt -i 2 -w -s -l -ci "${self}" || true
+    ;;
+  *)
+    echo "usage: ${self} <fmt>"
+    ;;
+esac
