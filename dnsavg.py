@@ -48,9 +48,16 @@ def run_test(res, domain):
 @click.option('--rounds', '-r', default=100, type=click.INT, help='number of tests', show_default=True)
 def main(server, rounds):
     if len(server) > 0 and server[0] == "fight":
-        server = {"google-1": "8.8.8.8", "google-2": "8.8.4.4", "cloudflare-1": "1.1.1.1", "cloudflare-2": "1.0.0.1", "quad9-1": "9.9.9.9",
-                  "quad9-2": "149.112.112.112", "opendns-1": "208.67.222.222", "opendns-2": "208.67.220.220"
-                  }.values()
+        server = {
+                "google-1": "8.8.8.8",
+                "google-2": "8.8.4.4",
+                "cloudflare-1": "1.1.1.1",
+                "cloudflare-2": "1.0.0.1",
+                "quad9-1": "9.9.9.9",
+                "quad9-2": "149.112.112.112",
+                "opendns-1": "208.67.222.222",
+                "opendns-2": "208.67.220.220"
+        }.values()
 
     for s in server.split(','):
         res = resolver.Resolver()
