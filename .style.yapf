@@ -9,4 +9,3 @@ use_tabs = False
 join_multiple_lines = True
 coalesce_brackets = True
 align_closing_bracket_with_visual_indent = True
-split_complex_comprehension = True
