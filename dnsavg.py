@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 import random
+import statistics
 import string
 import sys
 import time
 from random import randint
 
 import click
-import numpy
 from dns import rdataclass, rdatatype, resolver
 
 default_server = resolver.get_default_resolver().nameservers[0] if len(resolver.get_default_resolver().nameservers) > 0 else '127.0.0.1'
@@ -94,10 +94,10 @@ def main(server, rounds):
 
             results.append(ms)
 
-        r_avg = numpy.mean(results).astype(float)
-        r_stddev = numpy.std(results).astype(float)
-        r_min = numpy.min(results).astype(float)
-        r_max = numpy.max(results).astype(float)
+        r_avg = statistics.mean(results)
+        r_stddev = statistics.stdev(results)
+        r_min = min(results)
+        r_max = max(results)
 
         reset_line_print('=> {:s}: min: {:.2f}ms, max: {:.2f}ms, average: {:.2f}ms, stddev: {:.2f}ms\n'.format(s, r_min, r_max, r_avg, r_stddev))
 

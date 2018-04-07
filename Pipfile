@@ -9,7 +9,6 @@ name = "pypi"
 
 dnspython = "~=1.15"
 click = "~=6.7"
-numpy = "~=1.14"
 
 [dev-packages]
 
