@@ -9,9 +9,7 @@ case "${1:-}" in
   "fmt")
     set -x
     find . -type f -name '*.py' -exec \
-      autopep8 --in-place -j 0 -aaa --max-line-length 150 {} \
-      '+' || true
-    shfmt -i 2 -w -s -l -ci "${self}" || true
+      autopep8 --in-place -j 0 -aaa --max-line-length 150 {} '+'
     ;;
   *)
     echo "usage: ${self} <fmt>"
