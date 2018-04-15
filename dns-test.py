@@ -3,11 +3,11 @@
 import random
 import statistics
 import string
-import sys
-import time
 from random import randint
 
 import click
+import sys
+import time
 import yaml
 from dns import rdataclass, rdatatype, resolver
 
