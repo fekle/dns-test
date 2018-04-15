@@ -169,3 +169,66 @@ results:
       min: 10.26
       stdev: 265.04
 rounds: 32
+---
+date: 15-04-2018 17:11:04 CEST
+results:
+  cloudflare:
+    1.0.0.1:
+      avg: 62.81
+      max: 478.63
+      min: 12.54
+      stdev: 100.14
+    1.1.1.1:
+      avg: 38.48
+      max: 157.5
+      min: 10.87
+      stdev: 36.42
+  google:
+    8.8.4.4:
+      avg: 31.15
+      max: 174.93
+      min: 20.55
+      stdev: 27.28
+    8.8.8.8:
+      avg: 34.89
+      max: 300.79
+      min: 19.67
+      stdev: 49.91
+  opendns:
+    208.67.220.220:
+      avg: 71.96
+      max: 250.16
+      min: 12.87
+      stdev: 83.27
+    208.67.222.222:
+      avg: 75.86
+      max: 304.45
+      min: 13.94
+      stdev: 88.37
+  quad9:
+    149.112.112.112:
+      avg: 35.09
+      max: 268.31
+      min: 11.06
+      stdev: 49.63
+    9.9.9.9:
+      avg: 31.41
+      max: 256.64
+      min: 10.79
+      stdev: 46.07
+rounds: 32
+---
+date: 15-04-2018 17:13:07 CEST
+results:
+  input:
+    1.0.0.1:
+      avg: 65.67
+      max: 196.55
+      min: 13.71
+      stdev: 70.57
+    1.1.1.1:
+      avg: 31.86
+      max: 78.46
+      min: 13.01
+      stdev: 21.11
+rounds: 10
