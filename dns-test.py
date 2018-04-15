@@ -90,11 +90,12 @@ def main(server, server_file, report_file, rounds, local):
             # initiate DNS host
             res = resolver.Resolver(configure=False)
             res.nameservers = [host_list[i]]
-            res.timeout = 3
-            res.lifetime = 3
+            res.timeout = 2
+            res.lifetime = 1
             res.port = 53
             res.cache = False
 
+            failed = False
             max_tries = 3
             try_count = 0
             results = []
@@ -114,8 +115,9 @@ def main(server, server_file, report_file, rounds, local):
                         reset_line_print('retrying...')
                         continue
                     else:
-                        print('query failed', ms)
-                        exit(1)
+                        print('host failed: {}'.format(host_list[i]))
+                        failed = True
+                        break
                 else:
                     try_count = 0
 
@@ -127,13 +129,11 @@ def main(server, server_file, report_file, rounds, local):
                 # let's wait for a random time at the end to prevent flooding
                 time.sleep(randint(25, 150) / 1000)
 
-            # construct final result object for current host
-            final_results[name][host_list[i]] = {
-                    'avg': round(statistics.mean(results), 2),
-                    'stdev': round(statistics.stdev(results), 2),
-                    'min': round(min(results), 2),
-                    'max': round(max(results), 2)
-            }
+            if failed is False:
+                # construct final result object for current host
+                final_results[name][host_list[i]] = {'avg': round(statistics.mean(results), 2), 'stdev': round(statistics.stdev(results), 2),
+                    'min': round(min(results), 2), 'max': round(max(results), 2)
+                }
 
     reset_line_print('\n=== RESULTS ===\n')
 
@@ -149,17 +149,8 @@ def main(server, server_file, report_file, rounds, local):
     # if report file was specified, append yaml to report file
     if report_file:
         with open(report_file, 'a') as yaml_file:
-            yaml.safe_dump({
-                    'date': time.strftime('%d-%m-%Y %H:%M:%S %Z', start_time).strip(),
-                    'rounds': rounds,
-                    'results': final_results
-            },
-                           yaml_file,
-                           explicit_start=True,
-                           encoding='UTF-8',
-                           default_flow_style=False,
-                           indent=2,
-                           line_break=True)
+            yaml.safe_dump({'date': time.strftime('%d-%m-%Y %H:%M:%S %Z', start_time).strip(), 'rounds': rounds, 'results': final_results
+            }, yaml_file, explicit_start=True, encoding='UTF-8', default_flow_style=False, indent=2, line_break=True)
 
 
 if __name__ == '__main__':
