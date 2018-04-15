@@ -131,8 +131,11 @@ def main(server, server_file, report_file, rounds, local):
 
             if failed is False:
                 # construct final result object for current host
-                final_results[name][host_list[i]] = {'avg': round(statistics.mean(results), 2), 'stdev': round(statistics.stdev(results), 2),
-                    'min': round(min(results), 2), 'max': round(max(results), 2)
+                final_results[name][host_list[i]] = {
+                        'avg': round(statistics.mean(results), 2),
+                        'stdev': round(statistics.stdev(results), 2),
+                        'min': round(min(results), 2),
+                        'max': round(max(results), 2)
                 }
 
     reset_line_print('\n=== RESULTS ===\n')
@@ -149,8 +152,17 @@ def main(server, server_file, report_file, rounds, local):
     # if report file was specified, append yaml to report file
     if report_file:
         with open(report_file, 'a') as yaml_file:
-            yaml.safe_dump({'date': time.strftime('%d-%m-%Y %H:%M:%S %Z', start_time).strip(), 'rounds': rounds, 'results': final_results
-            }, yaml_file, explicit_start=True, encoding='UTF-8', default_flow_style=False, indent=2, line_break=True)
+            yaml.safe_dump({
+                    'date': time.strftime('%d-%m-%Y %H:%M:%S %Z', start_time).strip(),
+                    'rounds': rounds,
+                    'results': final_results
+            },
+                           yaml_file,
+                           explicit_start=True,
+                           encoding='UTF-8',
+                           default_flow_style=False,
+                           indent=2,
+                           line_break=True)
 
 
 if __name__ == '__main__':
