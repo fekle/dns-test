@@ -5,6 +5,8 @@ self="${0}"
 workdir="$(dirname "$(realpath "${self}")")"
 cd "${workdir}"
 
+DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME:-fekle/dns-test:latest}"
+
 case "${1:-}" in
   "fmt")
     set -x
@@ -12,14 +14,16 @@ case "${1:-}" in
       yapf -i --style .style.yapf -p {} '+' || true
     ;;
   "docker-build")
-    docker build -t fekle/dns-test:latest .
-    docker push fekle/dns-test:latest
+    docker build -t "${DOCKER_IMAGE_NAME}" .
+    ;;
+  "docker-push")
+    docker push "${DOCKER_IMAGE_NAME}"
     ;;
   "docker-run")
     docker run --rm -t \
       --user "$(id -u):$(id -g)" \
       -v "${workdir}:/workdir:rw" \
-      fekle/dns-test:latest ${@:2}
+      "${DOCKER_IMAGE_NAME}" ${@:2}
     ;;
   *)
     echo "usage: ${self} <fmt|docker-build|docker-run>"

@@ -45,8 +45,8 @@ def run_test(res, domain):
 
 @click.command(context_settings={'help_option_names': ['--help', '-h']})
 @click.option('--server', '-s', type=click.STRING, help='the nameserver to test', show_default=True, multiple=True)
-@click.option('--server-file', type=click.Path(exists=True), help='YAML file to read servers from', multiple=True)
-@click.option('--report-file', type=click.Path(exists=False), help='file to save results to')
+@click.option('--server-file', '-f', type=click.Path(exists=True), help='YAML file to read servers from', multiple=True)
+@click.option('--report-file', '-o', type=click.Path(exists=False), help='file to save results to')
 @click.option('--rounds', '-r', default=100, type=click.INT, help='number of tests', show_default=True)
 def main(server, server_file, report_file, rounds):
     start_time = time.localtime()
