@@ -5,11 +5,15 @@ self="${0}"
 workdir="$(dirname "${self}")"
 cd "${workdir}"
 
+# print all commands if ci
+if [[ -n ${CI:-} ]]; then
+  set -x
+fi
+
 DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME:-dns-test:latest}"
 
 case "${1:-}" in
   "fmt")
-    set -x
     find . -not -path '*/\.*' -type f -name '*.py' -exec \
       yapf -i --style .style.yapf -p -vv {} '+' || true
     ;;
