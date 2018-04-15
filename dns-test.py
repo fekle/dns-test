@@ -11,6 +11,7 @@ import yaml
 from dns import rdataclass, rdatatype, resolver
 
 tlds = ['com', 'org', 'co.uk', 'net', 'ca', 'de', 'jp', 'fr', 'au', 'us', 'at', 'ch', 'it', 'nl', 'io']
+local_servers = list(resolver.get_default_resolver().nameservers) if len(resolver.get_default_resolver().nameservers) > 0 else ['127.0.0.1']
 
 
 def random_string(size=6, chars=string.ascii_lowercase + string.digits):
@@ -43,11 +44,12 @@ def run_test(res, domain):
 
 
 @click.command(context_settings={'help_option_names': ['--help', '-h']})
-@click.option('--server', '-s', type=click.STRING, help='the nameserver to test', show_default=True, multiple=True)
+@click.option('--server', '-s', type=click.STRING, help='the nameserver to test', multiple=True)
 @click.option('--server-file', '-f', type=click.Path(exists=True), help='YAML file to read servers from', multiple=True)
 @click.option('--report-file', '-o', type=click.Path(exists=False), help='file to save results to')
 @click.option('--rounds', '-r', default=100, type=click.INT, help='number of tests', show_default=True)
-def main(server, server_file, report_file, rounds):
+@click.option('--local/--no-local', '-l', default=False, help='include local server', show_default=True)
+def main(server, server_file, report_file, rounds, local):
     """main function. loads server list from file and cmdline arguments, or loads system default if none specified"""
     start_time = time.localtime()
     server_list = {}
@@ -71,10 +73,9 @@ def main(server, server_file, report_file, rounds):
     if server and len(server) > 0:
         server_list['input'] = server
 
-    # load system default server if required
-    if len(server_list.items()) == 0:
-        default_servers = resolver.get_default_resolver().nameservers if len(resolver.get_default_resolver().nameservers) > 0 else ['127.0.0.1']
-        server_list['default'] = default_servers
+    # include local server if desired
+    if len(server_list.items()) == 0 or local is True:
+        server_list['local'] = local_servers
 
     # loop through servers
     for name, host_list in server_list.items():

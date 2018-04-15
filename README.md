@@ -21,12 +21,16 @@ For development, you can start a shell in the venv with `pipenv shell`.
 ```
 Usage: dns-test.py [OPTIONS]
 
+  main function. loads server list from file and cmdline arguments, or loads
+  system default if none specified
+
 Options:
-  -s, --server TEXT       the nameserver to test
-  -f, --server-file PATH  YAML file to read servers from
-  -o, --report-file PATH  file to save results to
-  -r, --rounds INTEGER    number of tests  [default: 100]
-  -h, --help              Show this message and exit.
+  -s, --server TEXT         the nameserver to test
+  -f, --server-file PATH    YAML file to read servers from
+  -o, --report-file PATH    file to save results to
+  -r, --rounds INTEGER      number of tests  [default: 100]
+  -l, --local / --no-local  include local server  [default: False]
+  -h, --help                Show this message and exit.
 ```
 [![asciicast](https://asciinema.org/a/176374.png)](https://asciinema.org/a/176374)
 
@@ -38,6 +42,7 @@ the `--server-file` option. Latter option requires a YAML formatted file, see se
 
 If `--report-file` is specified, a report will be appended to the specified file, also in YAML format.
 
+If you are performing comparisons of multiple servers, the flag `--local` can come in handy to compare your local server as well.
 
 ## Example
 ```bash
