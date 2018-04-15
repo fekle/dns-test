@@ -116,7 +116,7 @@ def main(server, server_file, report_file, rounds):
 
             final_results[name][host_list[i]] = {
                     'avg': round(statistics.mean(results), 2),
-                    'stdev': round(statistics.stdev(results),2 ),
+                    'stdev': round(statistics.stdev(results), 2),
                     'min': round(min(results), 2),
                     'max': round(max(results), 2)
             }
