@@ -61,6 +61,11 @@ def load_domains(path):
             raise Exception("couldn't find any domains in {}".format(path))
 
 
+def truncate_string(s, length=32):
+    """truncate a string to max length"""
+    return (s[:length - 3] + '...') if len(s) > length else s
+
+
 @click.command(context_settings={'help_option_names': ['--help', '-h']})
 @click.option('--server', '-s', type=click.STRING, help='the nameserver to test', multiple=True)
 @click.option('--server-file', '-f', type=click.Path(exists=True), help='YAML file to read servers from', multiple=True)
@@ -136,7 +141,7 @@ def main(server, server_file, report_file, rounds, local, domain_file):
                     try_count += 1
                     if try_count <= max_tries:
                         r -= 1
-                        reset_line_print('retrying...')
+                        reset_line_print('=> {:s} {:4d}    -    {:s}'.format(host_list[i], r + 1, truncate_string(domain)))
                         continue
                     else:
                         print('host failed: {}'.format(host_list[i]))
@@ -148,7 +153,7 @@ def main(server, server_file, report_file, rounds, local, domain_file):
                 results.append(ms)
 
                 # print status line
-                reset_line_print(' {:s}#{:d} {:7.2f} {:s}'.format(host_list[i], r + 1, ms, domain))
+                reset_line_print('=> {:s} {:4d} {:7.2f} {:s}'.format(host_list[i], r + 1, ms, truncate_string(domain)))
 
                 # let's wait for a random time at the end to prevent flooding
                 time.sleep(randint(25, 150) / 1000)

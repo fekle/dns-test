@@ -3,7 +3,7 @@
 A simple utility to test multiple DNS servers for their average resolve time.
 For more information please consult the comments in `dns-test.py`.
 
-[![asciicast](https://asciinema.org/a/176374.png)](https://asciinema.org/a/176374)
+[![asciicast](https://asciinema.org/a/176402.png)](https://asciinema.org/a/176402)
 
 ## Installation
 
@@ -47,7 +47,7 @@ If `--report-file` is specified, a report will be appended to the specified file
 If you are performing comparisons of multiple servers, the flag `--local` can come in handy to compare your local server as well.
 
 By default, this program generates random domains to combat caching. However if you want to achieve even more realistic test results,
-you should aquire a big domain list like Cisco Umbrella (see `./dev download-umbrella`) and include it with the `--domain-file` flag.
+you should acquire a big domain list like Cisco Umbrella (see `./dev download-umbrella`) and include it with the `--domain-file` flag.
 
 ## Example
 ```bash
