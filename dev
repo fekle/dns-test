@@ -11,7 +11,7 @@ case "${1:-}" in
   "fmt")
     set -x
     find . -not -path '*/\.*' -type f -name '*.py' -exec \
-      yapf -i --style .style.yapf -p {} '+' || true
+      yapf -i --style .style.yapf -p -vv {} '+' || true
     ;;
   "docker-build")
     docker build -t "${DOCKER_IMAGE_NAME}" .
