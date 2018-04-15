@@ -1,13 +1,13 @@
 sudo: required
 
+language: python
+
 services:
   - docker
 
-before_install:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
 script:
   - ./dev docker-build
+  - docker login -u "${DOCKER_USERNAME}" --password-stdin <<<"${DOCKER_PASSWORD}"
   - ./dev docker-push
 env:
   secure: OM5zS7oy0v/RibFp01FBt/k34JjZvI6NJdOPfYKfDznVJA+lPJ16Qsb1fLlEPwj2i7YpH37aYvagUXU4tKeAob3wBaw4lfYPX8d3Q/XoTR/67G4BKkjQxFeRJjQQ1FBvSf7javj0CFxZR/SBeIyIMuC/2H64a8Q3bhyC2q5mYXvE9hrgLRB3k8ZYqBy/FsBwd6tEccLylesDHH0qGGyQlMjBiuCRYHAl8ogQo1JUalnraU4GQDT0o8yivjQrkkt5P0bWS6siL4CjGYvviK6k2UIWUf6T3bc9FRloUODHaE8rrkD/HNuKjrMinSP48/JdKtWd/uHt/scLLVPOR6O5+bVPs6Y9Hy6fMhMzF8lQ5QpD1knqdjloMsBBB+ZjHVSiXmZuVtkbcXFmDhKPj7kqggCkIzGJyABcQSNKukv9UG5LPya9KNK3Ow4RkhQlV3DWxT8uYfYrRlL7Ym0xhNmJpdsYN14FI27/klgD7hp0Snp+4sIa1o+vX+cm1klnU0ZbAIkTJVH5LzwK9B5a9UoZ89EHMFUw5zu7CR8Ruq5wPYqw5a5K3o4e/3tecUJ5i1/B8fe4AKrWTIE2LaDP4lR71QyPV+lOK1w7JYuWafM+MFQhoOMAqy8rdCWdYQFOiCo6v1PIen3O2/FySyFnd7ro9h4c7GVatwO9UeGPJ2rNOso=
