@@ -1,7 +1,7 @@
 # dns-test
 
 A simple utility to test multiple DNS servers for their average resolve time.
-To disable caching, this tool generates random domains. For more information please consult the commends in `dns-test.py`.
+To disable caching, this tool generates random domains. For more information please consult the comments in `dns-test.py`.
 
 ## Installation
 
