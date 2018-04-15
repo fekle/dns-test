@@ -1,4 +1,4 @@
-# dns-test
+# dns-test [![Build Status](https://travis-ci.org/fekle/dns-test.svg?branch=master)](https://travis-ci.org/fekle/dns-test)
 
 A simple utility to test multiple DNS servers for their average resolve time.
 To disable caching, this tool generates random domains. For more information please consult the comments in `dns-test.py`.
