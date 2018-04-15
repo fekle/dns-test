@@ -1,9 +1,9 @@
 # dns-test [![Build Status](https://travis-ci.org/fekle/dns-test.svg?branch=master)](https://travis-ci.org/fekle/dns-test)
 
-[![asciicast](https://asciinema.org/a/176374.png)](https://asciinema.org/a/176374)
-
 A simple utility to test multiple DNS servers for their average resolve time.
 For more information please consult the comments in `dns-test.py`.
+
+[![asciicast](https://asciinema.org/a/176374.png)](https://asciinema.org/a/176374)
 
 ## Installation
 

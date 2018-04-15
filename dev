@@ -27,7 +27,7 @@ case "${1:-}" in
     ;;
   "download-umbrella")
     cd domains
-    wget -O- 'http://s3-us-west-1.amazonaws.com/umbrella-static/top-1m.csv.zip' | gunzip > umbrella.csv
+    wget -O- 'http://s3-us-west-1.amazonaws.com/umbrella-static/top-1m.csv.zip' | gunzip >umbrella.csv
     ;;
   *)
     echo "usage: ${self} <fmt|docker-build|docker-run|docker-push|download-umbrella>"
