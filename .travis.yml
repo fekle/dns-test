@@ -2,14 +2,20 @@ sudo: required
 
 language: generic
 
+branches:
+  only:
+  - master
+
 services:
   - docker
-
-before_install:
-  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
 script:
   - set -e
   - ./dev docker-build
   - ./dev docker-run --local --rounds 10
+
+before_deploy:
+  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+
+deploy:
   - ./dev docker-push
