@@ -6,8 +6,8 @@ To disable caching, this tool generates random domains. For more information ple
 ## Installation
 
 ### Docker
-The easiest way to run this is by using the pre-build docker image (`fekle/dns-test:latest`) or building the 
-image yourself with `./cli docker-build`. You can then run via `./cli docker-run <cmd>` or simply:
+The easiest way to run this is by using the pre-built docker image [fekle/dns-test:latest](https://hub.docker.com/r/fekle/dns-test/)
+or building the image yourself with `./cli docker-build`. You can then run via `./cli docker-run <cmd>` or simply:
 ```bash
 docker run --rm -t --user "$(id -u):$(id -g)" \
      -v "${workdir}:/workdir:rw" \
