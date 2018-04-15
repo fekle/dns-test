@@ -1,5 +1,7 @@
 # dns-test [![Build Status](https://travis-ci.org/fekle/dns-test.svg?branch=master)](https://travis-ci.org/fekle/dns-test)
 
+[![asciicast](https://asciinema.org/a/176374.png)](https://asciinema.org/a/176374)
+
 A simple utility to test multiple DNS servers for their average resolve time.
 For more information please consult the comments in `dns-test.py`.
 
@@ -33,7 +35,6 @@ Options:
   -d, --domain-file PATH    try to load random domains from list
   -h, --help                Show this message and exit.
 ```
-[![asciicast](https://asciinema.org/a/176374.png)](https://asciinema.org/a/176374)
 
 If the program is started with no arguments, the local default DNS server will be tested for 100 rounds.
 To choose the amount of test rounds, specify a number with `--rounds`.
