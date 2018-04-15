@@ -121,7 +121,7 @@ def main(server, server_file, report_file, rounds):
                 results.append(ms)
 
                 # print status line
-                reset_line_print(' {:s}#{:d} {:7.2f} {:s}'.format(host_list[i], r, ms, domain))
+                reset_line_print(' {:s}#{:d} {:7.2f} {:s}'.format(host_list[i], r + 1, ms, domain))
 
                 # let's wait for a random time at the end to prevent flooding
                 time.sleep(randint(25, 150) / 1000)
