@@ -31,7 +31,7 @@ Options:
   -r, --rounds INTEGER      number of tests  [default: 100]
   -l, --local / --no-local  include local server  [default: False]
   -d, --domain-file PATH    try to load random domains from list
-  -h, --help                Show this message and exit.             Show this message and exit.
+  -h, --help                Show this message and exit.
 ```
 [![asciicast](https://asciinema.org/a/176374.png)](https://asciinema.org/a/176374)
 
