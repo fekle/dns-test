@@ -28,7 +28,7 @@ Options:
   -r, --rounds INTEGER    number of tests  [default: 100]
   -h, --help              Show this message and exit.
 ```
-[![asciicast](https://asciinema.org/a/WLQRswRrrSpix9XWw4xtpBXFB.png)](https://asciinema.org/a/WLQRswRrrSpix9XWw4xtpBXFB)
+[![asciicast](https://asciinema.org/a/77D1Z2sxnwJFoqOIIFPFw6moN.png)](https://asciinema.org/a/77D1Z2sxnwJFoqOIIFPFw6moN)
 
 If the program is started with no arguments, the local default DNS server will be tested for 100 rounds.
 To choose the amount of test rounds, specify a number with `--rounds`.
