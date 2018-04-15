@@ -12,10 +12,14 @@ case "${1:-}" in
       yapf -i --style .style.yapf -p {} '+' || true
     ;;
   "docker-build")
-    docker build -t dns-test:latest .
+    docker build -t fekle/dns-test:latest .
+    docker push fekle/dns-test:latest
     ;;
   "docker-run")
-    docker run --rm -t dns-test:latest ${@:2}
+    docker run --rm -t \
+      --user "$(id -u):$(id -g)" \
+      -v "${workdir}:/workdir:rw" \
+      fekle/dns-test:latest ${@:2}
     ;;
   *)
     echo "usage: ${self} <fmt|docker-build|docker-run>"
