@@ -1,6 +1,6 @@
 sudo: required
 
-language: python
+language: generic
 
 services:
   - docker
@@ -10,4 +10,5 @@ before_install:
 
 script:
   - ./dev docker-build
+  - ./dev docker-run --local --rounds 10
   - ./dev docker-push
