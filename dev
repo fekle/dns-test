@@ -2,7 +2,7 @@
 set -euf
 
 self="${0}"
-workdir="$(dirname "$(realpath "${self}")")"
+workdir="$(dirname "${self}")"
 cd "${workdir}"
 
 DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME:-dns-test:latest}"

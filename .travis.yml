@@ -7,5 +7,5 @@ services:
 
 script:
   - ./dev docker-build
-  - docker login -u "${DOCKER_USERNAME}" --password-stdin <<<"${DOCKER_PASSWORD}"
+  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
   - ./dev docker-push
