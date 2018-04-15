@@ -3,7 +3,7 @@ WORKDIR /tmp
 
 # install dependencies with pipenv
 COPY Pipfile.lock Pipfile ./
-RUN pip3 install --upgrade pip && pip3 install --upgrade 'pipenv~=11.0' && pipenv --three install --system --deploy && pip3 uninstall -y pipenv
+RUN pip install 'pipenv~=11.0' && pipenv --three install --system --deploy && pip uninstall -y pipenv
 
 # start fresh and copy only lib
 FROM python:3.6-alpine
