@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-
 import random
 import statistics
 import string
+import sys
+import time
 from random import randint
 
 import click
-import sys
-import time
 import yaml
 from dns import rdataclass, rdatatype, resolver
 
@@ -31,16 +30,13 @@ def random_domain():
 
 
 def run_test(res, domain):
-    start = time.time()
     try:
-        _ = res.query(domain, rdtype=rdatatype.A, rdclass=rdataclass.IN)
-    except resolver.NXDOMAIN:
-        pass
+        x = res.query(domain, rdtype=rdatatype.A, rdclass=rdataclass.IN)
+        return x.response.time * 1000
+    except resolver.NXDOMAIN as e:
+        return e.kwargs['responses'][list(filter(lambda a: str(a) == (domain + '.'), e.kwargs['responses']))[0]].time * 1000
     except (resolver.NoAnswer, resolver.Timeout, resolver.NoNameservers, resolver.NoNameservers):
         return -1
-    stop = time.time()
-
-    return float((stop - start) * 1000)
 
 
 @click.command(context_settings={'help_option_names': ['--help', '-h']})
@@ -80,16 +76,17 @@ def main(server, server_file, report_file, rounds):
         final_results[name] = {}
 
         for i in range(0, len(host_list)):
-            res = resolver.Resolver()
+            res = resolver.Resolver(configure=False)
             res.nameservers = [host_list[i]]
             res.timeout = 3
-            res.lifetime = 1
+            res.lifetime = 3
             res.port = 53
-
-            results = []
+            res.cache = False
 
             max_tries = 3
             try_count = 0
+
+            results = []
 
             for r in range(0, rounds):
                 domain = random_domain()
@@ -110,7 +107,7 @@ def main(server, server_file, report_file, rounds):
 
                 time.sleep(randint(10, 75) / 1000)
 
-                reset_line_print('{:7.2f} {}'.format(ms, domain))
+                reset_line_print('{:6.2f} {}'.format(ms, domain))
 
                 results.append(ms)
 
@@ -129,8 +126,8 @@ def main(server, server_file, report_file, rounds):
         for i, j in v.items():
             stats = []
             for x, y in j.items():
-                stats.append('{}: {:7.2f}ms'.format(x, y))
-            print(' {:16}: {}'.format(i, ', '.join(stats)))
+                stats.append('{}: {:6.2f}ms'.format(x, y))
+            print(' {:16}: {}'.format(i, ' - '.join(stats)))
 
     if report_file:
         with open(report_file, 'a') as yaml_file:

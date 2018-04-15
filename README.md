@@ -28,6 +28,7 @@ Options:
   -r, --rounds INTEGER    number of tests  [default: 100]
   -h, --help              Show this message and exit.
 ```
+[![asciicast](https://asciinema.org/a/nskUckwjFapY8aN6GTVo6ZAuB.png)](https://asciinema.org/a/nskUckwjFapY8aN6GTVo6ZAuB)
 
 If the program is started with no arguments, the local default DNS server will be tested for 100 rounds.
 To choose the amount of test rounds, specify a number with `--rounds`.
@@ -41,72 +42,71 @@ If `--report-file` is specified, a report will be appended to the specified file
 ## Example
 ```bash
 $ ./dns-test.py --server-file servers/example.yml --rounds 32 --report-file report.yml
-testing google (8.8.8.8, 8.8.4.4) with 32 rounds per host
+esting google (8.8.8.8, 8.8.4.4) with 32 rounds per host
 testing cloudflare (1.1.1.1, 1.0.0.1) with 32 rounds per host
 testing quad9 (9.9.9.9, 149.112.112.112) with 32 rounds per host
 testing opendns (208.67.222.222, 208.67.220.220) with 32 rounds per host
 
 === RESULTS ===
 google:
- 8.8.8.8         : avg:   59.29ms, stdev:   10.25ms, min:   34.89ms, max:   84.14ms
- 8.8.4.4         : avg:   87.87ms, stdev:   68.63ms, min:   50.30ms, max:  280.44ms
+ 8.8.8.8         : avg:  69.62ms - stdev:  31.23ms - min:  49.46ms - max: 209.57ms
+ 8.8.4.4         : avg:  60.03ms - stdev:  11.19ms - min:  49.61ms - max: 100.45ms
 cloudflare:
- 1.1.1.1         : avg:   62.71ms, stdev:   33.75ms, min:   33.76ms, max:  185.84ms
- 1.0.0.1         : avg:   66.47ms, stdev:   47.05ms, min:   32.38ms, max:  189.15ms
+ 1.1.1.1         : avg:  86.47ms - stdev:  82.77ms - min:  30.43ms - max: 317.45ms
+ 1.0.0.1         : avg:  67.66ms - stdev:  42.37ms - min:  33.98ms - max: 185.58ms
 quad9:
- 9.9.9.9         : avg:   90.11ms, stdev:   74.28ms, min:   36.74ms, max:  281.42ms
- 149.112.112.112 : avg:   75.06ms, stdev:   39.90ms, min:   15.48ms, max:  159.50ms
+ 9.9.9.9         : avg:  68.42ms - stdev:  43.75ms - min:  34.85ms - max: 257.11ms
+ 149.112.112.112 : avg:  79.77ms - stdev:  52.78ms - min:  36.44ms - max: 218.77ms
 opendns:
- 208.67.222.222  : avg:  113.57ms, stdev:  106.47ms, min:   32.62ms, max:  413.05ms
- 208.67.220.220  : avg:  107.64ms, stdev:  103.36ms, min:   32.74ms, max:  379.61ms
-
+ 208.67.222.222  : avg:  91.79ms - stdev:  80.58ms - min:  33.36ms - max: 309.31ms
+ 208.67.220.220  : avg: 151.69ms - stdev: 155.14ms - min:  28.48ms - max: 565.12ms
+ 
 $ cat report.yml
----
-date: 15-04-2018 15:26:04 CEST
+date: 15-04-2018 15:48:31 CEST
 results:
   cloudflare:
     1.0.0.1:
-      avg: 66.47
-      max: 189.15
-      min: 32.38
-      stdev: 47.05
+      avg: 67.66
+      max: 185.58
+      min: 33.98
+      stdev: 42.37
     1.1.1.1:
-      avg: 62.71
-      max: 185.84
-      min: 33.76
-      stdev: 33.75
+      avg: 86.47
+      max: 317.45
+      min: 30.43
+      stdev: 82.77
   google:
     8.8.4.4:
-      avg: 87.87
-      max: 280.44
-      min: 50.3
-      stdev: 68.63
+      avg: 60.03
+      max: 100.45
+      min: 49.61
+      stdev: 11.19
     8.8.8.8:
-      avg: 59.29
-      max: 84.14
-      min: 34.89
-      stdev: 10.25
+      avg: 69.62
+      max: 209.57
+      min: 49.46
+      stdev: 31.23
   opendns:
     208.67.220.220:
-      avg: 107.64
-      max: 379.61
-      min: 32.74
-      stdev: 103.36
+      avg: 151.69
+      max: 565.12
+      min: 28.48
+      stdev: 155.14
     208.67.222.222:
-      avg: 113.57
-      max: 413.05
-      min: 32.62
-      stdev: 106.47
+      avg: 91.79
+      max: 309.31
+      min: 33.36
+      stdev: 80.58
   quad9:
     149.112.112.112:
-      avg: 75.06
-      max: 159.5
-      min: 15.48
-      stdev: 39.9
+      avg: 79.77
+      max: 218.77
+      min: 36.44
+      stdev: 52.78
     9.9.9.9:
-      avg: 90.11
-      max: 281.42
-      min: 36.74
-      stdev: 74.28
+      avg: 68.42
+      max: 257.11
+      min: 34.85
+      stdev: 43.75
 rounds: 32
 ```
