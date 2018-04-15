@@ -25,7 +25,11 @@ case "${1:-}" in
       -v "${workdir}:/workdir:rw" \
       "${DOCKER_IMAGE_NAME}" ${@:2}
     ;;
+  "download-umbrella")
+    cd domains
+    wget -O- 'http://s3-us-west-1.amazonaws.com/umbrella-static/top-1m.csv.zip' | gunzip > umbrella.csv
+    ;;
   *)
-    echo "usage: ${self} <fmt|docker-build|docker-run>"
+    echo "usage: ${self} <fmt|docker-build|docker-run|docker-push|download-umbrella>"
     ;;
 esac

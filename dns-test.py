@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import random
+import re
 import statistics
 import string
 import sys
@@ -43,17 +44,36 @@ def run_test(res, domain):
         return -1
 
 
+def load_domains(path):
+    """load domains from a file"""
+    domain_regex = re.compile('(?:[A-Za-z0-9_.\-~]+\.)+(?:[A-Za-z0-9_.\-~]+)')
+    with open(path, 'r') as file:
+        domains = []
+
+        i = 0
+        for line in file:
+            domains += domain_regex.findall(line)
+
+        if len(domains) >= 0:
+            print("found {} domains in {}".format(len(domains), path))
+            return domains
+        else:
+            raise Exception("couldn't find any domains in {}".format(path))
+
+
 @click.command(context_settings={'help_option_names': ['--help', '-h']})
 @click.option('--server', '-s', type=click.STRING, help='the nameserver to test', multiple=True)
 @click.option('--server-file', '-f', type=click.Path(exists=True), help='YAML file to read servers from', multiple=True)
 @click.option('--report-file', '-o', type=click.Path(exists=False), help='file to save results to')
 @click.option('--rounds', '-r', default=100, type=click.INT, help='number of tests', show_default=True)
 @click.option('--local/--no-local', '-l', default=False, help='include local server', show_default=True)
-def main(server, server_file, report_file, rounds, local):
+@click.option('--domain-file', '-d', type=click.Path(exists=True), help='try to load random domains from list')
+def main(server, server_file, report_file, rounds, local, domain_file):
     """main function. loads server list from file and cmdline arguments, or loads system default if none specified"""
     start_time = time.localtime()
     server_list = {}
     final_results = {}
+    domain_list = []
 
     # parse yaml file and load servers from list
     if server_file and len(server_file) > 0:
@@ -76,6 +96,10 @@ def main(server, server_file, report_file, rounds, local):
     # include local server if desired
     if len(server_list.items()) == 0 or local is True:
         server_list['local'] = local_servers
+
+    # load domains from file if desired
+    if domain_file and len(domain_file) > 0:
+        domain_list = load_domains(domain_file)
 
     # loop through servers
     for name, host_list in server_list.items():
@@ -102,7 +126,7 @@ def main(server, server_file, report_file, rounds, local):
 
             # loop through amount of rounds
             for r in range(0, rounds):
-                domain = random_domain()
+                domain = random_domain() if len(domain_list) <= 0 else domain_list[randint(0, len(domain_list) - 1)]
 
                 # run test
                 ms = run_test(res, domain)
