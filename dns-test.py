@@ -14,6 +14,7 @@ tlds = ['com', 'org', 'co.uk', 'net', 'ca', 'de', 'jp', 'fr', 'au', 'us', 'at', 
 
 
 def random_string(size=6, chars=string.ascii_lowercase + string.digits):
+    """"test"""
     return ''.join(random.choice(chars) for _ in range(size))
 
 
@@ -105,7 +106,7 @@ def main(server, server_file, report_file, rounds):
                 else:
                     try_count = 0
 
-                time.sleep(randint(10, 75) / 1000)
+                time.sleep(randint(25, 250) / 1000)
 
                 reset_line_print('{:6.2f} {}'.format(ms, domain))
 
