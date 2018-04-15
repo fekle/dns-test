@@ -9,6 +9,7 @@ before_install:
   - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
 script:
+  - set -e
   - ./dev docker-build
   - ./dev docker-run --local --rounds 10
   - ./dev docker-push
