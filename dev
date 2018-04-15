@@ -1,10 +1,6 @@
 #!/bin/bash
 set -euf
 
-self="${0}"
-workdir="$(dirname "${self}")"
-cd "${workdir}"
-
 # print all commands if ci
 if [[ -n ${CI:-} ]]; then
   set -x
@@ -26,7 +22,7 @@ case "${1:-}" in
   "docker-run")
     docker run --rm -t \
       --user "$(id -u):$(id -g)" \
-      -v "${workdir}:/workdir:rw" \
+      -v "$(pwd):/workdir:rw" \
       "${DOCKER_IMAGE_NAME}" ${@:2}
     ;;
   "download-umbrella")
@@ -34,6 +30,6 @@ case "${1:-}" in
     wget -O- 'http://s3-us-west-1.amazonaws.com/umbrella-static/top-1m.csv.zip' | gunzip >umbrella.csv
     ;;
   *)
-    echo "usage: ${self} <fmt|docker-build|docker-run|docker-push|download-umbrella>"
+    echo "usage: ${0} <fmt|docker-build|docker-run|docker-push|download-umbrella>"
     ;;
 esac
