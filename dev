@@ -5,7 +5,7 @@ self="${0}"
 workdir="$(dirname "$(realpath "${self}")")"
 cd "${workdir}"
 
-DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME:-fekle/dns-test:latest}"
+DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME:-dns-test:latest}"
 
 case "${1:-}" in
   "fmt")
