@@ -5,7 +5,9 @@ language: python
 services:
   - docker
 
+before_install:
+  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+
 script:
   - ./dev docker-build
-  - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
   - ./dev docker-push

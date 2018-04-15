@@ -14,7 +14,7 @@ case "${1:-}" in
       yapf -i --style .style.yapf -p -vv {} '+' || true
     ;;
   "docker-build")
-    docker build -t "${DOCKER_IMAGE_NAME}" .
+    docker build -t "${DOCKER_IMAGE_NAME}" --cache-from "${DOCKER_IMAGE_NAME}" .
     ;;
   "docker-push")
     docker push "${DOCKER_IMAGE_NAME}"
