@@ -90,8 +90,8 @@ def main(server, server_file, report_file, rounds, local):
             # initiate DNS host
             res = resolver.Resolver(configure=False)
             res.nameservers = [host_list[i]]
-            res.timeout = 2
-            res.lifetime = 1
+            res.timeout = 3
+            res.lifetime = 1.5
             res.port = 53
             res.cache = False
 
