@@ -125,7 +125,7 @@ def main(server, server_file, report_file, rounds, local, domain_file):
             res.cache = False
 
             failed = False
-            max_tries = 3
+            max_tries = 10
             try_count = 0
             results = []
 
