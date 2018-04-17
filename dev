@@ -13,14 +13,17 @@ case "${1:-}" in
     find . -not -path '*/\.*' -type f -name '*.py' -exec \
       yapf -i --style .style.yapf -p -vv {} '+' || true
     ;;
+  "run")
+    exec python3 -O ./dns-test.py ${@:2}
+    ;;
   "docker-build")
-    docker build -t "${DOCKER_IMAGE_NAME}" --cache-from "${DOCKER_IMAGE_NAME}" .
+    exec docker build -t "${DOCKER_IMAGE_NAME}" --cache-from "${DOCKER_IMAGE_NAME}" .
     ;;
   "docker-push")
-    docker push "${DOCKER_IMAGE_NAME}"
+    exec docker push "${DOCKER_IMAGE_NAME}"
     ;;
   "docker-run")
-    docker run --rm -t \
+    exec docker run --rm -t \
       --user "$(id -u):$(id -g)" \
       -v "$(pwd):/workdir:rw" \
       "${DOCKER_IMAGE_NAME}" ${@:2}
